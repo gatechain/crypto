@@ -14,13 +14,13 @@ import (
 
 	amino "github.com/tendermint/go-amino"
 
-	"github.com/tendermint/tendermint/crypto"
+	"github.com/gatechain/crypto"
 )
 
 //-------------------------------------
 const (
-	PrivKeyAminoName = "tendermint/PrivKeySecp256k1"
-	PubKeyAminoName  = "tendermint/PubKeySecp256k1"
+	PrivKeyAminoName = "gatechain/PrivKeySecp256k1"
+	PubKeyAminoName  = "gatechain/PubKeySecp256k1"
 )
 
 var cdc = amino.NewCodec()
