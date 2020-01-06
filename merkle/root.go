@@ -17,8 +17,9 @@
 package merkle
 
 import (
-	"github.com/algorand/go-algorand/crypto"
-	"github.com/algorand/go-algorand/logging"
+	"github.com/gatechain/crypto"
+	"fmt"
+	//"github.com/algorand/go-algorand/logging"
 )
 
 // Root returns the root of a merkle tree with the leaves given as input
@@ -30,7 +31,7 @@ func Root(leaves [][]byte) crypto.Digest {
 	root := mt.CurrentRoot().Hash()
 	var out crypto.Digest
 	if len(out[:]) != len(root) {
-		logging.Base().Panicf("merkleRoot: merkle root hash not the same length as a crypto.Digest: %v != %v", len(root), len(out[:]))
+		panic(fmt.Sprintf("merkleRoot: merkle root hash not the same length as a crypto.Digest: %v != %v", len(root), len(out[:])))
 	}
 	copy(out[:], root)
 	return out

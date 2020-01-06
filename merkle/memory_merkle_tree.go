@@ -36,7 +36,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/algorand/go-algorand/crypto/merkle/hashers"
+	"github.com/gatechain/crypto/merkle/hashers"
 )
 
 // TreeEntry is used for nodes in the tree for better readability. Just holds a hash but could be extended

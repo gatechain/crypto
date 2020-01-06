@@ -17,12 +17,12 @@
 package crypto
 
 import (
+	"fmt"
 	"crypto/rand"
 	"encoding/binary"
 
 	"github.com/davidlazar/go-crypto/drbg"
 
-	"github.com/algorand/go-algorand/logging"
 )
 
 // RNG represents a randomness source.  This could be either a system-wide
@@ -48,7 +48,7 @@ func RandUint64() uint64 {
 	var eightbytes [8]byte
 	_, err := rand.Read(eightbytes[:])
 	if err != nil {
-		logging.Base().Fatal("cannot read random number")
+		panic("cannot read random number")
 	}
 	return binary.LittleEndian.Uint64(eightbytes[:])
 }
@@ -63,7 +63,7 @@ func RandUint63() uint64 {
 func RandBytes(buf []byte) {
 	_, err := rand.Read(buf)
 	if err != nil {
-		logging.Base().Fatal("cannot read random bytes")
+		panic("cannot read random bytes")
 	}
 }
 
@@ -80,11 +80,11 @@ func MakePRNG(seed []byte) *PRNG {
 func (prng *PRNG) RandBytes(buf []byte) {
 	n, err := prng.d.Read(buf)
 	if err != nil {
-		logging.Base().Panicf("PRNG.RandBytes: %v", err)
+		panic(fmt.Sprintf("PRNG.RandBytes: %v", err))
 	}
 
 	if n != len(buf) {
-		logging.Base().Panicf("PRNG.RandBytes: short read: %v != %v", n, len(buf))
+		panic(fmt.Sprintf("PRNG.RandBytes: short read: %v != %v", n, len(buf)))
 	}
 }
 

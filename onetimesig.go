@@ -23,7 +23,6 @@ import (
 	"github.com/algorand/go-deadlock"
 
 	"github.com/algorand/go-algorand/config"
-	"github.com/algorand/go-algorand/logging"
 	"github.com/algorand/go-algorand/protocol"
 )
 
@@ -275,9 +274,9 @@ func (s *OneTimeSignatureSecrets) Sign(id OneTimeSignatureIdentifier, message Ha
 	// and it happens to be a batch boundary, but we don't have the batch
 	// size (key dilution) parameter accessible here easily.
 	if s.FirstBatch == id.Batch+1 && s.FirstOffset == id.Offset+1 {
-		logging.Base().Info(errmsg)
+		fmt.Println(errmsg)
 	} else {
-		logging.Base().Warn(errmsg)
+		fmt.Println(errmsg)
 	}
 	return OneTimeSignature{}
 }
