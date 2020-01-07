@@ -24,7 +24,7 @@ import (
 	"fmt"
 	"hash"
 
-	"github.com/algorand/go-algorand/protocol"
+	"github.com/gatechain/gatemint/protocol"
 )
 
 // Hashable is an interface implemented by an object that can be represented

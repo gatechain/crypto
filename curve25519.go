@@ -26,8 +26,8 @@ import "C"
 import (
 	"fmt"
 
-	"github.com/algorand/go-algorand/logging"
-	"github.com/algorand/go-algorand/util/metrics"
+	"github.com/gatechain/gatemint/logging"
+	"github.com/gatechain/gatemint/util/metrics"
 )
 
 // TODO: Remove metrics from crypto package

@@ -22,8 +22,8 @@ import (
 
 	"github.com/algorand/go-deadlock"
 
-	"github.com/algorand/go-algorand/config"
-	"github.com/algorand/go-algorand/protocol"
+	"github.com/gatechain/gatemint/config"
+	"github.com/gatechain/gatemint/protocol"
 )
 
 // A OneTimeSignature is a cryptographic signature that is produced a limited
