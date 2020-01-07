@@ -1,1 +1,5 @@
 # crypto
+
+## INSTALL
+
+make install
