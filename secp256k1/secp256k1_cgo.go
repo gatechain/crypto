@@ -9,7 +9,7 @@ import (
 
 // Sign creates an ECDSA signature on curve Secp256k1, using SHA256 on the msg.
 func (privKey PrivKeySecp256k1) Sign(msg []byte) ([]byte, error) {
-	rsv, err := secp256k1.Sign(crypto.Sha256(msg), privKey[:])
+	rsv, err := secp256k1.Sign(crypto.Sha512(msg), privKey[:])
 	if err != nil {
 		return nil, err
 	}
@@ -19,5 +19,5 @@ func (privKey PrivKeySecp256k1) Sign(msg []byte) ([]byte, error) {
 }
 
 func (pubKey PubKeySecp256k1) VerifyBytes(msg []byte, sig []byte) bool {
-	return secp256k1.VerifySignature(pubKey[:], crypto.Sha256(msg), sig)
+	return secp256k1.VerifySignature(pubKey[:], crypto.Sha512(msg), sig)
 }

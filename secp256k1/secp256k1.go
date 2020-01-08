@@ -2,7 +2,7 @@ package secp256k1
 
 import (
 	"bytes"
-	"crypto/sha256"
+	"crypto/sha512"
 	"crypto/subtle"
 	"fmt"
 	"io"
@@ -12,7 +12,7 @@ import (
 
 	secp256k1 "github.com/btcsuite/btcd/btcec"
 
-	amino "github.com/tendermint/go-amino"
+	"github.com/tendermint/go-amino"
 
 	"github.com/gatechain/crypto"
 )
@@ -106,7 +106,7 @@ var one = new(big.Int).SetInt64(1)
 // NOTE: secret should be the output of a KDF like bcrypt,
 // if it's derived from user input.
 func GenPrivKeySecp256k1(secret []byte) PrivKeySecp256k1 {
-	secHash := sha256.Sum256(secret)
+	secHash := sha512.Sum512(secret)
 	// to guarantee that we have a valid field element, we use the approach of:
 	// "Suite B Implementer’s Guide to FIPS 186-3", A.2.1
 	// https://apps.nsa.gov/iaarchive/library/ia-guidance/ia-solutions-for-classified/algorithm-guidance/suite-b-implementers-guide-to-fips-186-3-ecdsa.cfm
@@ -141,7 +141,7 @@ type PubKeySecp256k1 [PubKeySecp256k1Size]byte
 
 // Address returns a Bitcoin style addresses: RIPEMD160(SHA256(pubkey))
 func (pubKey PubKeySecp256k1) Address() crypto.Address {
-	hasherSHA256 := sha256.New()
+	hasherSHA256 := sha512.New()
 	hasherSHA256.Write(pubKey[:]) // does not error
 	sha := hasherSHA256.Sum(nil)
 

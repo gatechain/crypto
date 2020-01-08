@@ -90,7 +90,7 @@ func genPrivKey(rand io.Reader) PrivKeySr25519 {
 // NOTE: secret should be the output of a KDF like bcrypt,
 // if it's derived from user input.
 func GenPrivKeyFromSecret(secret []byte) PrivKeySr25519 {
-	seed := crypto.Sha256(secret) // Not Ripemd160 because we want 32 bytes.
+	seed := crypto.Sha512(secret) // Not Ripemd160 because we want 32 bytes.
 	var bz [PrivKeySr25519Size]byte
 	copy(bz[:], seed)
 	privKey, _ := schnorrkel.NewMiniSecretKeyFromRaw(bz)

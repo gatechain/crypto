@@ -18,7 +18,7 @@ package merkle
 
 import (
 	"crypto"
-	_ "crypto/sha256" // XXX TODO make sha512 and update test vectors
+	_ "crypto/sha512" // XXX TODO make sha512 and update test vectors
 )
 
 // Domain separation prefixes
@@ -28,7 +28,7 @@ const (
 )
 
 // DefaultHasher is a SHA512-256 based LogHasher.
-var DefaultHasher = New(crypto.SHA256) // XXX TODO make SHA512_256 and update test vectors
+var DefaultHasher = New(crypto.SHA512) // XXX TODO make SHA512_256 and update test vectors
 
 // Hasher implements the RFC6962 tree hashing algorithm but with SHA512-256 instead of SHA256
 type Hasher struct {

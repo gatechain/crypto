@@ -20,7 +20,7 @@ var secp256k1halfN = new(big.Int).Rsh(secp256k1.S256().N, 1)
 // The returned signature will be of the form R || S (in lower-S form).
 func (privKey PrivKeySecp256k1) Sign(msg []byte) ([]byte, error) {
 	priv, _ := secp256k1.PrivKeyFromBytes(secp256k1.S256(), privKey[:])
-	sig, err := priv.Sign(crypto.Sha256(msg))
+	sig, err := priv.Sign(crypto.Sha512(msg))
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func (pubKey PubKeySecp256k1) VerifyBytes(msg []byte, sigStr []byte) bool {
 	if signature.S.Cmp(secp256k1halfN) > 0 {
 		return false
 	}
-	return signature.Verify(crypto.Sha256(msg), pub)
+	return signature.Verify(crypto.Sha512(msg), pub)
 }
 
 // Read Signature struct from R || S. Caller needs to ensure

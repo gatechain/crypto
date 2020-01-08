@@ -1,23 +1,23 @@
 package tmhash
 
 import (
-	"crypto/sha256"
+	"crypto/sha512"
 	"hash"
 )
 
 const (
-	Size      = sha256.Size
-	BlockSize = sha256.BlockSize
+	Size      = sha512.Size
+	BlockSize = sha512.BlockSize
 )
 
 // New returns a new hash.Hash.
 func New() hash.Hash {
-	return sha256.New()
+	return sha512.New()
 }
 
 // Sum returns the SHA256 of the bz.
 func Sum(bz []byte) []byte {
-	h := sha256.Sum256(bz)
+	h := sha512.Sum512(bz)
 	return h[:]
 }
 
@@ -27,39 +27,39 @@ const (
 	TruncatedSize = 20
 )
 
-type sha256trunc struct {
-	sha256 hash.Hash
+type sha512trunc struct {
+	sha512 hash.Hash
 }
 
-func (h sha256trunc) Write(p []byte) (n int, err error) {
-	return h.sha256.Write(p)
+func (h sha512trunc) Write(p []byte) (n int, err error) {
+	return h.sha512.Write(p)
 }
-func (h sha256trunc) Sum(b []byte) []byte {
-	shasum := h.sha256.Sum(b)
+func (h sha512trunc) Sum(b []byte) []byte {
+	shasum := h.sha512.Sum(b)
 	return shasum[:TruncatedSize]
 }
 
-func (h sha256trunc) Reset() {
-	h.sha256.Reset()
+func (h sha512trunc) Reset() {
+	h.sha512.Reset()
 }
 
-func (h sha256trunc) Size() int {
+func (h sha512trunc) Size() int {
 	return TruncatedSize
 }
 
-func (h sha256trunc) BlockSize() int {
-	return h.sha256.BlockSize()
+func (h sha512trunc) BlockSize() int {
+	return h.sha512.BlockSize()
 }
 
 // NewTruncated returns a new hash.Hash.
 func NewTruncated() hash.Hash {
-	return sha256trunc{
-		sha256: sha256.New(),
+	return sha512trunc{
+		sha512: sha512.New(),
 	}
 }
 
 // SumTruncated returns the first 20 bytes of SHA256 of the bz.
 func SumTruncated(bz []byte) []byte {
-	hash := sha256.Sum256(bz)
+	hash := sha512.Sum512(bz)
 	return hash[:TruncatedSize]
 }
