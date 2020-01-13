@@ -25,9 +25,7 @@ import "C"
 
 import (
 	"fmt"
-
-	"github.com/gatechain/gatemint/logging"
-	"github.com/gatechain/gatemint/util/metrics"
+	"github.com/gatechain/crypto/metrics"
 )
 
 // TODO: Remove metrics from crypto package
@@ -45,48 +43,48 @@ const masterDerivationKeyLenBytes = 32
 
 func init() {
 	if C.sodium_init() < 0 {
-		logging.Init()
-		logging.Base().Fatal("failed to initialize libsodium!")
+		//logging.Init()
+		//logging.Base().Fatal("failed to initialize libsodium!")
 	}
 }
 
 // A Seed holds the entropy needed to generate cryptographic keys.
-type Seed ed25519Seed
+type Seed Ed25519Seed
 
 /* Classical signatures */
 
-type ed25519Signature [C.crypto_sign_ed25519_BYTES]byte
-type ed25519PublicKey [C.crypto_sign_ed25519_PUBLICKEYBYTES]byte
-type ed25519PrivateKey [C.crypto_sign_ed25519_SECRETKEYBYTES]byte
-type ed25519Seed [C.crypto_sign_ed25519_SEEDBYTES]byte
+type Ed25519Signature [C.crypto_sign_ed25519_BYTES]byte
+type Ed25519PublicKey [C.crypto_sign_ed25519_PUBLICKEYBYTES]byte
+type Ed25519PrivateKey [C.crypto_sign_ed25519_SECRETKEYBYTES]byte
+type Ed25519Seed [C.crypto_sign_ed25519_SEEDBYTES]byte
 
 // MasterDerivationKey is used to derive ed25519 keys for use in wallets
 type MasterDerivationKey [masterDerivationKeyLenBytes]byte
 
-// PrivateKey is an exported ed25519PrivateKey
-type PrivateKey ed25519PrivateKey
+// PrivateKey is an exported Ed25519PrivateKey
+type PrivateKey Ed25519PrivateKey
 
-// PublicKey is an exported ed25519PublicKey
-type PublicKey ed25519PublicKey
+// PublicKey is an exported Ed25519PublicKey
+type PublicKey Ed25519PublicKey
 
-func ed25519GenerateKey() (public ed25519PublicKey, secret ed25519PrivateKey) {
-	var seed ed25519Seed
+func Ed25519GenerateKey() (public Ed25519PublicKey, secret Ed25519PrivateKey) {
+	var seed Ed25519Seed
 	RandBytes(seed[:])
-	return ed25519GenerateKeySeed(seed)
+	return Ed25519GenerateKeySeed(seed)
 }
 
-func ed25519GenerateKeyRNG(rng RNG) (public ed25519PublicKey, secret ed25519PrivateKey) {
-	var seed ed25519Seed
+func Ed25519GenerateKeyRNG(rng RNG) (public Ed25519PublicKey, secret Ed25519PrivateKey) {
+	var seed Ed25519Seed
 	rng.RandBytes(seed[:])
-	return ed25519GenerateKeySeed(seed)
+	return Ed25519GenerateKeySeed(seed)
 }
 
-func ed25519GenerateKeySeed(seed ed25519Seed) (public ed25519PublicKey, secret ed25519PrivateKey) {
+func Ed25519GenerateKeySeed(seed Ed25519Seed) (public Ed25519PublicKey, secret Ed25519PrivateKey) {
 	C.crypto_sign_ed25519_seed_keypair((*C.uchar)(&public[0]), (*C.uchar)(&secret[0]), (*C.uchar)(&seed[0]))
 	return
 }
 
-func ed25519Sign(secret ed25519PrivateKey, data []byte) (sig ed25519Signature) {
+func Ed25519Sign(secret Ed25519PrivateKey, data []byte) (sig Ed25519Signature) {
 	// &data[0] will make Go panic if msg is zero length
 	d := (*C.uchar)(C.NULL)
 	if len(data) != 0 {
@@ -97,7 +95,7 @@ func ed25519Sign(secret ed25519PrivateKey, data []byte) (sig ed25519Signature) {
 	return
 }
 
-func ed25519Verify(public ed25519PublicKey, data []byte, sig ed25519Signature) bool {
+func Ed25519Verify(public Ed25519PublicKey, data []byte, sig Ed25519Signature) bool {
 	// &data[0] will make Go panic if msg is zero length
 	d := (*C.uchar)(C.NULL)
 	if len(data) != 0 {
@@ -110,7 +108,7 @@ func ed25519Verify(public ed25519PublicKey, data []byte, sig ed25519Signature) b
 
 // A Signature is a cryptographic signature. It proves that a message was
 // produced by a holder of a cryptographic secret.
-type Signature ed25519Signature
+type Signature Ed25519Signature
 
 // A SignatureVerifier is used to identify the holder of SignatureSecrets
 // and verify the authenticity of Signatures.
@@ -120,7 +118,7 @@ type SignatureVerifier = PublicKey
 // a message.
 type SignatureSecrets struct {
 	SignatureVerifier
-	SK ed25519PrivateKey
+	SK Ed25519PrivateKey
 }
 
 // SecretKeyToSignatureSecrets converts a private key into a SignatureSecrets and
@@ -132,7 +130,7 @@ func SecretKeyToSignatureSecrets(sk PrivateKey) (secrets *SignatureSecrets, err 
 	}
 	secrets = &SignatureSecrets{
 		SignatureVerifier: SignatureVerifier(pk),
-		SK:                ed25519PrivateKey(sk),
+		SK:                Ed25519PrivateKey(sk),
 	}
 	return
 }
@@ -161,7 +159,7 @@ func SecretKeyToSeed(secret PrivateKey) (Seed, error) {
 
 // GenerateSignatureSecrets creates SignatureSecrets from a source of entropy.
 func GenerateSignatureSecrets(seed Seed) *SignatureSecrets {
-	pk0, sk := ed25519GenerateKeySeed(ed25519Seed(seed))
+	pk0, sk := Ed25519GenerateKeySeed(Ed25519Seed(seed))
 	pk := SignatureVerifier(pk0)
 	cryptoGenSigSecretsTotal.Inc(map[string]string{})
 	return &SignatureSecrets{SignatureVerifier: pk, SK: sk}
@@ -171,14 +169,14 @@ func GenerateSignatureSecrets(seed Seed) *SignatureSecrets {
 // cryptographic secrets.
 func (s *SignatureSecrets) Sign(message Hashable) Signature {
 	cryptoSigSecretsSignTotal.Inc(map[string]string{})
-	return s.SignBytes(hashRep(message))
+	return s.SignBytes(HashRep(message))
 }
 
 // SignBytes signs a message directly, without first hashing.
 // Caller is responsible for domain separation.
 func (s *SignatureSecrets) SignBytes(message []byte) Signature {
 	cryptoSigSecretsSignBytesTotal.Inc(map[string]string{})
-	return Signature(ed25519Sign(ed25519PrivateKey(s.SK), message))
+	return Signature(Ed25519Sign(Ed25519PrivateKey(s.SK), message))
 }
 
 // Verify verifies that some holder of a cryptographic secret authentically
@@ -188,7 +186,7 @@ func (s *SignatureSecrets) SignBytes(message []byte) Signature {
 //
 func (v SignatureVerifier) Verify(message Hashable, sig Signature) bool {
 	cryptoSigSecretsVerifyTotal.Inc(map[string]string{})
-	return ed25519Verify(ed25519PublicKey(v), hashRep(message), ed25519Signature(sig))
+	return Ed25519Verify(Ed25519PublicKey(v), HashRep(message), Ed25519Signature(sig))
 }
 
 // VerifyBytes verifies a signature, where the message is not hashed first.
@@ -196,5 +194,5 @@ func (v SignatureVerifier) Verify(message Hashable, sig Signature) bool {
 // If the message is a Hashable, Verify() can be used instead.
 func (v SignatureVerifier) VerifyBytes(message []byte, sig Signature) bool {
 	cryptoSigSecretsVerifyBytesTotal.Inc(map[string]string{})
-	return ed25519Verify(ed25519PublicKey(v), message, ed25519Signature(sig))
+	return Ed25519Verify(Ed25519PublicKey(v), message, Ed25519Signature(sig))
 }

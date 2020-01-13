@@ -14,16 +14,28 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with go-algorand.  If not, see <https://www.gnu.org/licenses/>.
 
-package crypto
+package metrics
 
 import (
-	"testing"
-	// "github.com/stretchr/testify/require"
+	"github.com/gatechain/go-deadlock"
 )
 
-func TestEmptyEncoding(t *testing.T) {
-	// TODO systematically add checks for empty encodings
+// Counter represent a single counter variable.
+type Counter struct {
+	// Collects value for special fast-path with no labels through Inc(nil) AddUint64(x, nil)
+	// We want to make it on a 64-bit aligned address for ARM compiliers as it's being used by AddUint64
+	intValue uint64
 
-	// var s SignatureSecrets
-	// require.Equal(t, 1, len(protocol.Encode(&s)))
+	deadlock.Mutex
+	name          string
+	description   string
+	values        []*counterValues
+	labels        map[string]int // map each label ( i.e. httpErrorCode ) to an index.
+	valuesIndices map[int]int
+}
+
+type counterValues struct {
+	counter         float64
+	labels          map[string]string
+	formattedLabels string
 }

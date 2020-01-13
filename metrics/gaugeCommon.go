@@ -14,16 +14,26 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with go-algorand.  If not, see <https://www.gnu.org/licenses/>.
 
-package crypto
+package metrics
 
 import (
-	"testing"
-	// "github.com/stretchr/testify/require"
+	"time"
+
+	"github.com/gatechain/go-deadlock"
 )
 
-func TestEmptyEncoding(t *testing.T) {
-	// TODO systematically add checks for empty encodings
+// Gauge represent a single gauge variable.
+type Gauge struct {
+	deadlock.Mutex
+	name          string
+	description   string
+	labels        map[string]int       // map each label ( i.e. httpErrorCode ) to an index.
+	valuesIndices map[int]*gaugeValues // maps each set of labels into a concrete gauge
+}
 
-	// var s SignatureSecrets
-	// require.Equal(t, 1, len(protocol.Encode(&s)))
+type gaugeValues struct {
+	gauge           float64
+	timestamp       time.Time
+	labels          map[string]string
+	formattedLabels string
 }

@@ -23,18 +23,16 @@ import (
 	"errors"
 	"fmt"
 	"hash"
-
-	"github.com/gatechain/gatemint/protocol"
 )
 
 // Hashable is an interface implemented by an object that can be represented
 // with a sequence of bytes to be hashed or signed, together with a type ID
 // to distinguish different types of objects.
 type Hashable interface {
-	ToBeHashed() (protocol.HashID, []byte)
+	ToBeHashed() (HashID, []byte)
 }
 
-func hashRep(h Hashable) []byte {
+func HashRep(h Hashable) []byte {
 	hashid, data := h.ToBeHashed()
 	return append([]byte(hashid), data...)
 }
@@ -81,7 +79,7 @@ func Hash(data []byte) Digest {
 
 // HashObj computes a hash of a Hashable object and its type
 func HashObj(h Hashable) Digest {
-	return Hash(hashRep(h))
+	return Hash(HashRep(h))
 }
 
 // NewHash returns a sha512-256 object to do the same operation as Hash()

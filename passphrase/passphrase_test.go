@@ -23,7 +23,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/algorand/go-algorand/crypto"
+	"github.com/gatechain/go-deadlock/go-algorand/crypto"
 )
 
 func TestGenerateAndRecovery(t *testing.T) {
