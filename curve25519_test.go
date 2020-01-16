@@ -28,9 +28,9 @@ func makeCurve25519Secret() *SignatureSecrets {
 }
 
 func TestSignVerifyEmptyMessage(t *testing.T) {
-	pk, sk := ed25519GenerateKey()
-	sig := ed25519Sign(sk, []byte{})
-	if !ed25519Verify(pk, []byte{}, sig) {
+	pk, sk := Ed25519GenerateKey()
+	sig := Ed25519Sign(sk, []byte{})
+	if !Ed25519Verify(pk, []byte{}, sig) {
 		t.Errorf("sig of an empty message failed to verify")
 	}
 }
