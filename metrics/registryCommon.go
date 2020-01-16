@@ -14,16 +14,22 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with go-algorand.  If not, see <https://www.gnu.org/licenses/>.
 
-package crypto
+package metrics
 
 import (
-	"testing"
-	// "github.com/stretchr/testify/require"
+	"strings"
+
+	"github.com/gatechain/go-deadlock"
 )
 
-func TestEmptyEncoding(t *testing.T) {
-	// TODO systematically add checks for empty encodings
+// Metric represent any collectable metric
+type Metric interface {
+	WriteMetric(buf *strings.Builder, parentLabels string)
+	AddMetric(values map[string]string)
+}
 
-	// var s SignatureSecrets
-	// require.Equal(t, 1, len(protocol.Encode(&s)))
+// Registry represents a single set of metrics registry
+type Registry struct {
+	metrics   []Metric
+	metricsMu deadlock.Mutex
 }

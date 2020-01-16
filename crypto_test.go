@@ -19,16 +19,14 @@ package crypto
 import (
 	"math/rand"
 	"testing"
-
-	"github.com/algorand/go-algorand/protocol"
 )
 
 type TestingHashable struct {
 	data []byte
 }
 
-func (s TestingHashable) ToBeHashed() (protocol.HashID, []byte) {
-	return protocol.TestHashable, s.data
+func (s TestingHashable) ToBeHashed() (string, []byte) {
+	return "TE", s.data
 }
 
 func randString() (b TestingHashable) {
