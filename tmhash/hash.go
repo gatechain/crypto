@@ -2,7 +2,6 @@ package tmhash
 
 import (
 	"crypto/sha256"
-	"crypto/sha512"
 	"hash"
 )
 
@@ -62,11 +61,5 @@ func NewTruncated() hash.Hash {
 // SumTruncated returns the first 20 bytes of SHA256 of the bz.
 func SumTruncated(bz []byte) []byte {
 	hash := sha256.Sum256(bz)
-	return hash[:TruncatedSize]
-}
-
-// SumTruncated returns the first 20 bytes of SHA512 of the bz.
-func SumTruncated512(bz []byte) []byte {
-	hash := sha512.Sum512(bz)
 	return hash[:TruncatedSize]
 }

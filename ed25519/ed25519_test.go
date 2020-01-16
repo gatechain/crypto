@@ -1,12 +1,13 @@
 package ed25519_test
 
 import (
+	"fmt"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 	"github.com/gatechain/crypto"
 	"github.com/gatechain/crypto/ed25519"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestSignAndValidateEd25519(t *testing.T) {
@@ -26,4 +27,7 @@ func TestSignAndValidateEd25519(t *testing.T) {
 	sig[7] ^= byte(0x01)
 
 	assert.False(t, pubKey.VerifyBytes(msg, sig))
+
+	fmt.Println(pubKey.Address())
+	fmt.Println(pubKey.Address512())
 }

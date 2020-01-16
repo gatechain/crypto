@@ -79,7 +79,7 @@ func Hash512(data []byte) Digest512 {
 
 // HashObj computes a hash of a Hashable object and its type
 func Hash512Obj(h Hashable) Digest512 {
-	return Hash512(hashRep(h))
+	return Hash512(HashRep(h))
 }
 
 // NewHash returns a sha512-256 object to do the same operation as Hash()
