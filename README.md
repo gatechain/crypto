@@ -1,5 +1,3 @@
 # crypto
 
-## INSTALL
-
-make install
+Depend on github.com/algorand/libsodium
