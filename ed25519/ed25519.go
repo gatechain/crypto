@@ -141,7 +141,7 @@ func (pubKey PubKeyEd25519) Address() crypto.Address {
 	return crypto.Address(tmhash.SumTruncated(pubKey[:]))
 }
 
-// Address is the SHA512-20 of the raw pubkey bytes.
+// Address is the SHA512 of the raw pubkey bytes.
 func (pubKey PubKeyEd25519) Address512() crypto.Address {
 	hasherSHA512 := sha512.New()
 	hasherSHA512.Write(pubKey[:]) // does not error

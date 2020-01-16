@@ -43,3 +43,24 @@ func TestDigest_IsZero(t *testing.T) {
 	require.NotZero(t, d2)
 
 }
+
+func TestEncodeDecode512(t *testing.T) {
+	toBeHashed := []byte("this is a test")
+	hashed := Hash512(toBeHashed)
+	hashedStr := hashed.String()
+	recovered, err := Digest512FromString(hashedStr)
+
+	require.Equal(t, nil, err)
+	require.Equal(t, recovered, hashed)
+}
+
+func TestDigest512_IsZero(t *testing.T) {
+	d := Digest512{}
+	require.True(t, d.IsZero())
+	require.Zero(t, d)
+
+	d2 := Digest512{}
+	RandBytes(d2[:])
+	require.False(t, d2.IsZero())
+	require.NotZero(t, d2)
+}
