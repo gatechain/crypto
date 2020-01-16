@@ -3,8 +3,10 @@ package secp256k1
 import (
 	"bytes"
 	"crypto/sha256"
+	"crypto/sha512"
 	"crypto/subtle"
 	"fmt"
+	"github.com/maoxs2/go-ripemd"
 	"io"
 	"math/big"
 
@@ -12,7 +14,7 @@ import (
 
 	secp256k1 "github.com/btcsuite/btcd/btcec"
 
-	amino "github.com/tendermint/go-amino"
+	"github.com/tendermint/go-amino"
 
 	"github.com/gatechain/crypto"
 )
@@ -148,6 +150,17 @@ func (pubKey PubKeySecp256k1) Address() crypto.Address {
 	hasherRIPEMD160 := ripemd160.New()
 	hasherRIPEMD160.Write(sha) // does not error
 	return crypto.Address(hasherRIPEMD160.Sum(nil))
+}
+
+// Address returns a Bitcoin style addresses: RIPEMD320(SHA512(pubkey))
+func (pubKey PubKeySecp256k1) Address512() crypto.Address {
+	hasherSHA512 := sha512.New()
+	hasherSHA512.Write(pubKey[:]) // does not error
+	sha := hasherSHA512.Sum(nil)
+
+	hasherRIPEMD320 := ripemd.New320()
+	hasherRIPEMD320.Write(sha) // does not error
+	return crypto.Address(hasherRIPEMD320.Sum(nil))
 }
 
 // Bytes returns the pubkey marshalled with amino encoding.

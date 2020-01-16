@@ -2,6 +2,7 @@ package secp256k1_test
 
 import (
 	"encoding/hex"
+	"fmt"
 	"math/big"
 	"testing"
 
@@ -19,6 +20,7 @@ type keyData struct {
 	priv string
 	pub  string
 	addr string
+	addr512 string
 }
 
 var secpDataTable = []keyData{
@@ -26,6 +28,7 @@ var secpDataTable = []keyData{
 		priv: "a96e62ed3955e65be32703f12d87b6b5cf26039ecfa948dc5107a495418e5330",
 		pub:  "02950e1cdfcb133d6024109fd489f734eeb4502418e538c28481f22bce276f248c",
 		addr: "1CKZ9Nx4zgds8tU7nJHotKSDr4a9bYJCa3",
+		addr512: "3EDC51FBD92AFF5F43FB6640E8C25AAB65372052C5BEF6D1FBA432FE5AAB44210FE3FF5FA27E9B99",
 	},
 }
 
@@ -43,9 +46,12 @@ func TestPubKeySecp256k1Address(t *testing.T) {
 		pubT, _ := pubKey.(secp256k1.PubKeySecp256k1)
 		pub := pubT[:]
 		addr := pubKey.Address()
+		addr512 := pubKey.Address512()
+		fmt.Printf("addr512:%s\n", addr512)
 
 		assert.Equal(t, pub, pubB, "Expected pub keys to match")
 		assert.Equal(t, addr, addrB, "Expected addresses to match")
+		assert.Equal(t, addr512.String(), d.addr512, "Expected addresses to match")
 	}
 }
 

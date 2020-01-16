@@ -2,15 +2,17 @@ package ed25519
 
 import (
 	"bytes"
+	"crypto/sha512"
 	"crypto/subtle"
 	"fmt"
 	"io"
 
-	amino "github.com/tendermint/go-amino"
+	"github.com/tendermint/go-amino"
 	"golang.org/x/crypto/ed25519"
 
 	"github.com/gatechain/crypto"
 	"github.com/gatechain/crypto/tmhash"
+	"github.com/maoxs2/go-ripemd"
 )
 
 //-------------------------------------
@@ -141,7 +143,13 @@ func (pubKey PubKeyEd25519) Address() crypto.Address {
 
 // Address is the SHA512-20 of the raw pubkey bytes.
 func (pubKey PubKeyEd25519) Address512() crypto.Address {
-	return crypto.Address(tmhash.SumTruncated512(pubKey[:]))
+	hasherSHA512 := sha512.New()
+	hasherSHA512.Write(pubKey[:]) // does not error
+	sha := hasherSHA512.Sum(nil)
+
+	hasherRIPEMD320 := ripemd.New320()
+	hasherRIPEMD320.Write(sha) // does not error
+	return crypto.Address(hasherRIPEMD320.Sum(nil))
 }
 
 // Bytes marshals the PubKey using amino encoding.

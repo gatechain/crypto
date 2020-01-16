@@ -23,8 +23,6 @@ import (
 	"errors"
 	"fmt"
 	"hash"
-
-	"github.com/gatechain/gatemint/protocol"
 )
 
 // Hashable is an interface implemented by an object that can be represented
@@ -61,7 +59,7 @@ func (d Digest512) IsZero() bool {
 }
 
 // DigestFromString converts a string to a Digest
-func DigestFromString(str string) (d Digest512, err error) {
+func Digest512FromString(str string) (d Digest512, err error) {
 	decoded, err := base32.StdEncoding.WithPadding(base32.NoPadding).DecodeString(str)
 	if err != nil {
 		return d, err
@@ -75,16 +73,16 @@ func DigestFromString(str string) (d Digest512, err error) {
 }
 
 // Hash computes the SHASum512_256 hash of an array of bytes
-func Hash(data []byte) Digest512 {
+func Hash512(data []byte) Digest512 {
 	return sha512.Sum512(data)
 }
 
 // HashObj computes a hash of a Hashable object and its type
-func HashObj(h Hashable) Digest512 {
-	return Hash(hashRep(h))
+func Hash512Obj(h Hashable) Digest512 {
+	return Hash512(hashRep(h))
 }
 
 // NewHash returns a sha512-256 object to do the same operation as Hash()
-func NewHash() hash.Hash {
+func NewHash512() hash.Hash {
 	return sha512.New()
 }
