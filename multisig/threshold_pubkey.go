@@ -1,7 +1,9 @@
 package multisig
 
 import (
+	"crypto/sha512"
 	"github.com/gatechain/crypto"
+	"github.com/maoxs2/go-ripemd"
 )
 
 // PubKeyMultisigThreshold implements a K of N threshold multisig.
@@ -93,4 +95,14 @@ func (pk PubKeyMultisigThreshold) Equals(other crypto.PubKey) bool {
 		}
 	}
 	return true
+}
+
+func (pk PubKeyMultisigThreshold) Address512() crypto.Address {
+	hasherSHA512 := sha512.New()
+	hasherSHA512.Write(pk.Bytes()[:]) // does not error
+	sha := hasherSHA512.Sum(nil)
+
+	hasherRIPEMD320 := ripemd.New320()
+	hasherRIPEMD320.Write(sha) // does not error
+	return crypto.Address(hasherRIPEMD320.Sum(nil))
 }
