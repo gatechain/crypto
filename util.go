@@ -79,7 +79,7 @@ func Hash(data []byte) Digest {
 
 // Hash computes the SHASum512_256 hash of an array of bytes
 func TxHash(data []byte) Digest {
-	return sha256(data)
+	return Sha256(data)
 }
 
 // HashObj computes a hash of a Hashable object and its type
