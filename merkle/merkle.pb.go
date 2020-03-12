@@ -139,8 +139,8 @@ func (m *Proof) GetOps() []ProofOp {
 }
 
 func init() {
-	proto.RegisterType((*ProofOp)(nil), "merkle.ProofOp")
-	proto.RegisterType((*Proof)(nil), "merkle.Proof")
+	proto.RegisterType((*ProofOp)(nil), "merkle.GMProofOp")
+	proto.RegisterType((*Proof)(nil), "merkle.GMProof")
 }
 
 func init() { proto.RegisterFile("crypto/merkle/merkle.proto", fileDescriptor_9c1c2162d560d38e) }
