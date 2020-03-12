@@ -2,7 +2,9 @@ package sr25519
 
 import (
 	"bytes"
+	"crypto/sha512"
 	"fmt"
+	"github.com/maoxs2/go-ripemd"
 
 	"github.com/gatechain/crypto"
 	"github.com/gatechain/crypto/tmhash"
@@ -68,4 +70,14 @@ func (pubKey PubKeySr25519) Equals(other crypto.PubKey) bool {
 		return bytes.Equal(pubKey[:], otherEd[:])
 	}
 	return false
+}
+
+func (pubKey PubKeySr25519) Address512() crypto.Address {
+	hasherSHA512 := sha512.New()
+	hasherSHA512.Write(pubKey[:]) // does not error
+	sha := hasherSHA512.Sum(nil)
+
+	hasherRIPEMD320 := ripemd.New320()
+	hasherRIPEMD320.Write(sha) // does not error
+	return crypto.Address(hasherRIPEMD320.Sum(nil))
 }
