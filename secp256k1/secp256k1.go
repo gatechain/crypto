@@ -6,17 +6,13 @@ import (
 	"crypto/sha512"
 	"crypto/subtle"
 	"fmt"
+	secp256k1 "github.com/btcsuite/btcd/btcec"
+	"github.com/gatechain/crypto"
 	"github.com/maoxs2/go-ripemd"
+	"github.com/tendermint/go-amino"
+	"golang.org/x/crypto/ripemd160"
 	"io"
 	"math/big"
-
-	"golang.org/x/crypto/ripemd160"
-
-	secp256k1 "github.com/btcsuite/btcd/btcec"
-
-	"github.com/tendermint/go-amino"
-
-	"github.com/gatechain/crypto"
 )
 
 //-------------------------------------
