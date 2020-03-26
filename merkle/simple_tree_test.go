@@ -5,8 +5,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	cmn "github.com/tendermint/tendermint/libs/common"
-	. "github.com/tendermint/tendermint/libs/test"
+	cmn "github.com/gatechain/crypto/merkle/common"
 
 	"github.com/gatechain/crypto/tmhash"
 )
@@ -61,11 +60,11 @@ func TestSimpleProof(t *testing.T) {
 		proof.Aunts = origAunts
 
 		// Mutating the itemHash should make it fail.
-		err = proof.Verify(rootHash, MutateByteSlice(item))
+		err = proof.Verify(rootHash, cmn.MutateByteSlice(item))
 		require.Error(t, err, "Expected verification to fail for mutated leaf hash")
 
 		// Mutating the rootHash should make it fail.
-		err = proof.Verify(MutateByteSlice(rootHash), item)
+		err = proof.Verify(cmn.MutateByteSlice(rootHash), item)
 		require.Error(t, err, "Expected verification to fail for mutated root hash")
 	}
 }

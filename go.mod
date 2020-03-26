@@ -10,6 +10,7 @@ require (
 	github.com/gatechain/go-deadlock v0.2.0
 	github.com/gogo/protobuf v1.3.1
 	github.com/magiconair/properties v1.8.1
+	github.com/maoxs2/go-ripemd v0.0.0-20200227063901-215d858ac634
 	github.com/pkg/errors v0.8.1
 	github.com/stretchr/testify v1.4.0
 	github.com/tendermint/go-amino v0.15.1
