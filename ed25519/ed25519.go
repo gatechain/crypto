@@ -137,19 +137,19 @@ const PubKeyEd25519Size = 32
 type PubKeyEd25519 [PubKeyEd25519Size]byte
 
 // Address is the SHA256-20 of the raw pubkey bytes.
-func (pubKey PubKeyEd25519) Address() crypto.Address {
+func (pubKey PubKeyEd25519) Address512() crypto.Address {
 	return crypto.Address(tmhash.SumTruncated(pubKey[:]))
 }
 
 // Address is the SHA512 of the raw pubkey bytes.
-func (pubKey PubKeyEd25519) Address512() crypto.Address {
+func (pubKey PubKeyEd25519) Address() crypto.Address {
 	hasherSHA512 := sha512.New()
 	hasherSHA512.Write(pubKey[:]) // does not error
 	sha := hasherSHA512.Sum(nil)
 
 	hasherRIPEMD320 := ripemd.New320()
 	hasherRIPEMD320.Write(sha) // does not error
-	return crypto.Address(hasherRIPEMD320.Sum(nil))
+	return crypto.Address(hasherRIPEMD320.Sum(nil)[0:32])
 }
 
 // Bytes marshals the PubKey using amino encoding.
