@@ -12,22 +12,27 @@ import (
 
 func TestSignAndValidateEd25519(t *testing.T) {
 
-	privKey := ed25519.GenPrivKey()
-	pubKey := privKey.PubKey()
+	for i := 0; i < 10000; i++ {
+		privKey := ed25519.GenPrivKey()
+		pubKey := privKey.PubKey()
 
-	msg := crypto.CRandBytes(128)
-	sig, err := privKey.Sign(msg)
-	require.Nil(t, err)
+		msg := crypto.CRandBytes(128)
+		sig, err := privKey.Sign(msg)
+		require.Nil(t, err)
 
-	// Test the signature
-	assert.True(t, pubKey.VerifyBytes(msg, sig))
+		// Test the signature
+		assert.True(t, pubKey.VerifyBytes(msg, sig))
 
-	// Mutate the signature, just one bit.
-	// TODO: Replace this with a much better fuzzer, tendermint/ed25519/issues/10
-	sig[7] ^= byte(0x01)
+		// Mutate the signature, just one bit.
+		// TODO: Replace this with a much better fuzzer, tendermint/ed25519/issues/10
+		sig[7] ^= byte(0x01)
 
-	assert.False(t, pubKey.VerifyBytes(msg, sig))
+		assert.False(t, pubKey.VerifyBytes(msg, sig))
 
-	fmt.Println(pubKey.Address())
-	fmt.Println(pubKey.Address512())
+		if i%1000 == 0 {
+			fmt.Println(pubKey.Address())
+			fmt.Println(pubKey.Address512())
+		}
+	}
+
 }

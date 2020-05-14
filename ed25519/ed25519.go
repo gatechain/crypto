@@ -5,7 +5,9 @@ import (
 	"crypto/sha512"
 	"crypto/subtle"
 	"fmt"
+	"github.com/gatechain/crypto/edwards25519"
 	"io"
+	"strconv"
 
 	"github.com/tendermint/go-amino"
 	"golang.org/x/crypto/ed25519"
@@ -54,9 +56,58 @@ func (privKey PrivKeyEd25519) Bytes() []byte {
 // The latter 32 bytes should be the compressed public key.
 // If these conditions aren't met, Sign will panic or produce an
 // incorrect signature.
-func (privKey PrivKeyEd25519) Sign(msg []byte) ([]byte, error) {
-	signatureBytes := ed25519.Sign(privKey[:], msg)
-	return signatureBytes, nil
+//func (privKey PrivKeyEd25519) Sign(msg []byte) ([]byte, error) {
+//	signatureBytes := ed25519.Sign(privKey[:], msg)
+//	return signatureBytes, nil
+//}
+
+func (privKey PrivKeyEd25519) Sign(message []byte) ([]byte, error) {
+	privateKey := privKey[:]
+	if l := len(privateKey); l != ed25519.PrivateKeySize {
+		panic("ed25519: bad private key length: " + strconv.Itoa(l))
+	}
+
+	h := sha512.New()
+	h.Write(privateKey[:32])
+
+	var digest1, messageDigest, hramDigest [64]byte
+	var expandedSecretKey [32]byte
+	h.Sum(digest1[:0])
+	//copy(expandedSecretKey[:], digest1[:])
+	//expandedSecretKey[0] &= 248
+	//expandedSecretKey[31] &= 63
+	//expandedSecretKey[31] |= 64
+	copy(expandedSecretKey[:], privateKey[:32])
+
+	h.Reset()
+	h.Write(digest1[32:])
+	h.Write(message)
+	h.Sum(messageDigest[:0])
+
+	var messageDigestReduced [32]byte
+	edwards25519.ScReduce(&messageDigestReduced, &messageDigest)
+	var R edwards25519.ExtendedGroupElement
+	edwards25519.GeScalarMultBase(&R, &messageDigestReduced)
+
+	var encodedR [32]byte
+	R.ToBytes(&encodedR)
+
+	h.Reset()
+	h.Write(encodedR[:])
+	h.Write(privateKey[32:])
+	h.Write(message)
+	h.Sum(hramDigest[:0])
+	var hramDigestReduced [32]byte
+	edwards25519.ScReduce(&hramDigestReduced, &hramDigest)
+
+	var s [32]byte
+	edwards25519.ScMulAdd(&s, &hramDigestReduced, &expandedSecretKey, &messageDigestReduced)
+
+	signature := make([]byte, SignatureSize)
+	copy(signature[:], encodedR[:])
+	copy(signature[32:], s[:])
+
+	return signature, nil
 }
 
 // PubKey gets the corresponding public key from the private key.
@@ -107,7 +158,7 @@ func genPrivKey(rand io.Reader) PrivKeyEd25519 {
 		panic(err)
 	}
 
-	privKey := ed25519.NewKeyFromSeed(seed)
+	privKey := NewKeyFromSeed(seed)
 	var privKeyEd PrivKeyEd25519
 	copy(privKeyEd[:], privKey)
 	return privKeyEd
@@ -120,10 +171,34 @@ func genPrivKey(rand io.Reader) PrivKeyEd25519 {
 func GenPrivKeyFromSecret(secret []byte) PrivKeyEd25519 {
 	seed := crypto.Sha256(secret) // Not Ripemd160 because we want 32 bytes.
 
-	privKey := ed25519.NewKeyFromSeed(seed)
+	privKey := NewKeyFromSeed(seed)
 	var privKeyEd PrivKeyEd25519
 	copy(privKeyEd[:], privKey)
 	return privKeyEd
+}
+
+func NewKeyFromSeed(seed []byte) []byte {
+	if l := len(seed); l != ed25519.SeedSize {
+		panic("ed25519: bad seed length: " + strconv.Itoa(l))
+	}
+
+	digest := sha512.Sum512(seed)
+	digest[0] &= 248
+	digest[31] &= 127
+	digest[31] |= 64
+
+	var A edwards25519.ExtendedGroupElement
+	var hBytes [32]byte
+	copy(hBytes[:], digest[:32])
+	edwards25519.GeScalarMultBase(&A, &hBytes)
+	var publicKeyBytes [32]byte
+	A.ToBytes(&publicKeyBytes)
+
+	privateKey := make([]byte, ed25519.PrivateKeySize)
+	copy(privateKey, digest[:32])
+	copy(privateKey[32:], publicKeyBytes[:])
+
+	return privateKey
 }
 
 //-------------------------------------
