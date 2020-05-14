@@ -5,7 +5,7 @@ import (
 	"crypto/sha512"
 	"crypto/subtle"
 	"fmt"
-	"github.com/gatechain/crypto/edwards25519"
+	"github.com/gatechain/crypto/ed25519/edwards25519"
 	"io"
 	"strconv"
 
