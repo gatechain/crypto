@@ -18,12 +18,11 @@ package passphrase
 
 import (
 	"crypto/rand"
+	"github.com/gatechain/crypto"
 	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/require"
-
-	"github.com/gatechain/go-deadlock/go-algorand/crypto"
 )
 
 func TestGenerateAndRecovery(t *testing.T) {
