@@ -224,7 +224,7 @@ func (pubKey PubKeyEd25519) Address() crypto.Address {
 
 	hasherRIPEMD320 := ripemd.New320()
 	hasherRIPEMD320.Write(sha) // does not error
-	return crypto.Address(hasherRIPEMD320.Sum(nil)[0:32])
+	return crypto.Address(hasherRIPEMD320.Sum(nil))
 }
 
 // Bytes marshals the PubKey using amino encoding.

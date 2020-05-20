@@ -38,7 +38,7 @@ func HashRep(h Hashable) []byte {
 }
 
 // DigestSize is the number of bytes in the preferred hash Digest used here.
-const DigestSize = sha512.Size256
+const DigestSize = sha512.Size384
 
 // Digest represents a 32-byte value holding the 256-bit Hash digest.
 type Digest [DigestSize]byte
@@ -74,12 +74,12 @@ func DigestFromString(str string) (d Digest, err error) {
 
 // Hash computes the SHASum512_256 hash of an array of bytes
 func Hash(data []byte) Digest {
-	return sha512.Sum512_256(data)
+	return sha512.Sum384(data)
 }
 
 // Hash computes the SHASum512_256 hash of an array of bytes
 //func TxHash(data []byte) Digest {
-	//return Sha256(data)
+//return Sha256(data)
 //}
 
 // HashObj computes a hash of a Hashable object and its type
@@ -89,5 +89,5 @@ func HashObj(h Hashable) Digest {
 
 // NewHash returns a sha512-256 object to do the same operation as Hash()
 func NewHash() hash.Hash {
-	return sha512.New512_256()
+	return sha512.New384()
 }
