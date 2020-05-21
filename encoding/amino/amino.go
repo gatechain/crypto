@@ -1,14 +1,15 @@
 package cryptoamino
 
 import (
+	"github.com/gatechain/crypto/ed25519x"
 	"reflect"
 
-	amino "github.com/tendermint/go-amino"
 	"github.com/gatechain/crypto"
 	"github.com/gatechain/crypto/ed25519"
 	"github.com/gatechain/crypto/multisig"
 	"github.com/gatechain/crypto/secp256k1"
 	"github.com/gatechain/crypto/sr25519"
+	amino "github.com/tendermint/go-amino"
 )
 
 var cdc = amino.NewCodec()
@@ -56,6 +57,7 @@ func RegisterAmino(cdc *amino.Codec) {
 		secp256k1.PubKeyAminoName, nil)
 	cdc.RegisterConcrete(multisig.PubKeyMultisigThreshold{},
 		multisig.PubKeyMultisigThresholdAminoRoute, nil)
+	cdc.RegisterConcrete(ed25519x.XPub{}, ed25519x.XPubKeyAminoName, nil)
 
 	cdc.RegisterInterface((*crypto.PrivKey)(nil), nil)
 	cdc.RegisterConcrete(ed25519.PrivKeyEd25519{},
@@ -64,6 +66,7 @@ func RegisterAmino(cdc *amino.Codec) {
 		sr25519.PrivKeyAminoName, nil)
 	cdc.RegisterConcrete(secp256k1.PrivKeySecp256k1{},
 		secp256k1.PrivKeyAminoName, nil)
+	cdc.RegisterConcrete(ed25519x.XPrv{}, ed25519x.XPrivKeyAminoName, nil)
 }
 
 // RegisterKeyType registers an external key type to allow decoding it from bytes
