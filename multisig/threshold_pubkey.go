@@ -75,7 +75,7 @@ func (pk PubKeyMultisigThreshold) Bytes() []byte {
 }
 
 // Address returns tmhash(PubKeyMultisigThreshold.Bytes())
-func (pk PubKeyMultisigThreshold) Address() crypto.Address {
+func (pk PubKeyMultisigThreshold) Address512() crypto.Address {
 	return crypto.AddressHash(pk.Bytes())
 }
 
@@ -97,7 +97,7 @@ func (pk PubKeyMultisigThreshold) Equals(other crypto.PubKey) bool {
 	return true
 }
 
-func (pk PubKeyMultisigThreshold) Address512() crypto.Address {
+func (pk PubKeyMultisigThreshold) Address() crypto.Address {
 	hasherSHA512 := sha512.New()
 	hasherSHA512.Write(pk.Bytes()[:]) // does not error
 	sha := hasherSHA512.Sum(nil)
