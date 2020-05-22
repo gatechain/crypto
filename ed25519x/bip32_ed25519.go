@@ -158,6 +158,9 @@ func DerivePrivateKeyFromPath(x XPrv, path string) (XPrv, error) {
 		if idx < 0 {
 			return XPrv{}, errors.New("invalid BIP 32 path: index negative ot too large")
 		}
+		if harden {
+			idx |= HardIndex
+		}
 		x = x.DerivePrv(uint32(idx))
 	}
 	return x, nil

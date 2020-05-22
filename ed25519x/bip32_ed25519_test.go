@@ -70,6 +70,8 @@ func TestEdd25519Priv(t *testing.T) {
 		"filter ball stove pluck matrix mechanic")))
 	t.Log("gxfs", hex.EncodeToString(gxfs[:]))
 	t.Log("xprv1", xprv.String())
+	xpub := xprv.PubKey().(XPub)
+	t.Log("xpub", hex.EncodeToString(xpub[:]))
 
 	xprivate := xprv.EDPrivKey()
 	xpublic := xprv.EDPubKey()
