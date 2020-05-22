@@ -23,8 +23,8 @@ const (
 	HardIndex = 0x80000000
 	XPrvSize  = 96
 
-	XPrivKeyAminoName = "crypto/keys/hd/XPrv"
-	XPubKeyAminoName  = "crypto/keys/hd/XPub"
+	XPrivKeyAminoName = "gatechain/XPrv"
+	XPubKeyAminoName  = "gatechain/XPub"
 
 	XPubSize = 64
 )
@@ -66,8 +66,8 @@ func (priv XPrv) Equals(other crypto.PrivKey) bool {
 	return false
 }
 
-func GenPrivKey() XPrv {
-	xprv, err := DerivePrivateKeyFromPath(GenerateXprvFromSeed(crypto.CRandBytes(128)), "44'/0'/0'/0/420")
+func GenPrivKey(fullHdPath string) XPrv {
+	xprv, err := DerivePrivateKeyFromPath(GenerateXprvFromSeed(crypto.CRandBytes(128)), fullHdPath)
 	if err != nil {
 		panic(err)
 	}
