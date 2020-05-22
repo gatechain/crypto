@@ -1,10 +1,11 @@
 package multisig
 
 import (
-	amino "github.com/tendermint/go-amino"
 	"github.com/gatechain/crypto"
 	"github.com/gatechain/crypto/ed25519"
+	"github.com/gatechain/crypto/ed25519x"
 	"github.com/gatechain/crypto/secp256k1"
+	amino "github.com/tendermint/go-amino"
 )
 
 // TODO: Figure out API for others to either add their own pubkey types, or
@@ -23,4 +24,7 @@ func init() {
 		ed25519.PubKeyAminoName, nil)
 	cdc.RegisterConcrete(secp256k1.PubKeySecp256k1{},
 		secp256k1.PubKeyAminoName, nil)
+	cdc.RegisterConcrete(ed25519x.XPub{},
+		ed25519x.XPubKeyAminoName, nil)
+
 }

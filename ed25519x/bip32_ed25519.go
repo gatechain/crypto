@@ -144,7 +144,10 @@ func GenerateXprvFromSeed(seed []byte) XPrv {
 // DerivePrivateKeyFromPath derives the private key by following the BIP 32/44 path from privKeyBytes
 func DerivePrivateKeyFromPath(x XPrv, path string) (XPrv, error) {
 	parts := strings.Split(path, "/")
-	for _, part := range parts {
+	for i, part := range parts {
+		if i == 0 && part == "m" {
+			continue
+		}
 		// do we have an apostrophe?
 		harden := part[len(part)-1:] == "'"
 		// harden == private derivation, else public derivation:
