@@ -104,7 +104,7 @@ func TestSignAndValidateEd25519(t *testing.T) {
 }
 
 func TestXPrvXPub(t *testing.T) {
-	xprivate := GenPrivKey("44'/0'/0'/0/420")
+	xprivate := GenPrivKey()
 	xpublic := xprivate.PubKey()
 	t.Log("xprv   ", hex.EncodeToString(xprivate.Bytes()[:]), "len", len(xprivate.Bytes()))
 	t.Log("xpublic", hex.EncodeToString(xpublic.Bytes()[:]), "len", len(xpublic.Bytes()))

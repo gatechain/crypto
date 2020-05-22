@@ -20,6 +20,8 @@ import (
 )
 
 const (
+	GateCoinFullPath = "44'/669'/0'/0/0"
+
 	HardIndex = 0x80000000
 	XPrvSize  = 96
 
@@ -66,7 +68,11 @@ func (priv XPrv) Equals(other crypto.PrivKey) bool {
 	return false
 }
 
-func GenPrivKey(fullHdPath string) XPrv {
+func GenPrivKey() XPrv {
+	return GenPrivKeyFromPath(GateCoinFullPath)
+}
+
+func GenPrivKeyFromPath(fullHdPath string) XPrv {
 	xprv, err := DerivePrivateKeyFromPath(GenerateXprvFromSeed(crypto.CRandBytes(128)), fullHdPath)
 	if err != nil {
 		panic(err)
