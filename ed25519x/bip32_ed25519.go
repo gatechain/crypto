@@ -28,7 +28,7 @@ const (
 	XPrivKeyAminoName = "gatechain/XPrv"
 	XPubKeyAminoName  = "gatechain/XPub"
 
-	XPubSize = 64
+	XPubSize = 32
 )
 
 var cdc = amino.NewCodec()
@@ -57,7 +57,7 @@ func (priv XPrv) PubKey() crypto.PubKey {
 	var xpub [XPubSize]byte
 	pub := priv.EDPubKey()
 	copy(xpub[:], pub[:])
-	copy(xpub[32:], priv[64:])
+	//copy(xpub[32:], priv[64:])
 	return XPub(xpub)
 }
 
