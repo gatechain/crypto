@@ -25,8 +25,8 @@ const (
 	HardIndex = 0x80000000
 	XPrvSize  = 96
 
-	XPrivKeyAminoName = "gatechain/XPrv"
-	XPubKeyAminoName  = "gatechain/XPub"
+	XPrivKeyAminoName = "gatechain/PrivKeyEd25519"
+	XPubKeyAminoName  = "gatechain/PubKeyEd25519"
 
 	XPubSize = 32
 )
