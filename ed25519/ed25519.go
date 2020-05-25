@@ -22,8 +22,8 @@ import (
 var _ crypto.PrivKey = PrivKeyEd25519{}
 
 const (
-	PrivKeyAminoName = "gatechain/PrivKeyEd25519"
-	PubKeyAminoName  = "gatechain/PubKeyEd25519"
+	PrivKeyAminoName = "gatechain/Ed25519PrivKey"
+	PubKeyAminoName  = "gatechain/Ed25519PubKey"
 	// Size of an Edwards25519 signature. Namely the size of a compressed
 	// Edwards25519 point, and a field element. Both of which are 32 bytes.
 	SignatureSize = 64
