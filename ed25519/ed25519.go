@@ -145,7 +145,7 @@ func (privKey PrivKeyEd25519) Equals(other crypto.PrivKey) bool {
 
 // GenPrivKey generates a new ed25519 private key.
 // It uses OS randomness in conjunction with the current global random seed
-// in tendermint/libs/common to generate the private key.
+// to generate the private key.
 func GenPrivKey() PrivKeyEd25519 {
 	return genPrivKey(crypto.CReader())
 }
