@@ -25,7 +25,7 @@ type TestingHashable struct {
 	data []byte
 }
 
-func (s TestingHashable) ToBeHashed() (string, []byte) {
+func (s TestingHashable) ToBeHashed() (HashID, []byte) {
 	return "TE", s.data
 }
 

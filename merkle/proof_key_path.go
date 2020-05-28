@@ -104,7 +104,7 @@ func KeyPathToKeys(path string) (keys [][]byte, err error) {
 			if err != nil {
 				return nil, errors.Wrapf(err, "decoding url-encoded part #%d: /%s", i, part)
 			}
-			keys[i] = []byte(key) // TODO Test this with random bytes, I'm not sure that it works for arbitrary bytes...
+			keys[i] = []byte(key)
 		}
 	}
 	return keys, nil

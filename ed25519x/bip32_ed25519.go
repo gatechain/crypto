@@ -20,7 +20,7 @@ import (
 )
 
 const (
-	GateCoinFullPath = "44'/669'/0'/0/0"
+	DefaultFullPath = "44'/669'/0'/0/0"
 
 	HardIndex = 0x80000000
 	XPrvSize  = 96
@@ -69,7 +69,7 @@ func (priv XPrv) Equals(other crypto.PrivKey) bool {
 }
 
 func GenPrivKey() XPrv {
-	return GenPrivKeyFromPath(GateCoinFullPath)
+	return GenPrivKeyFromPath(DefaultFullPath)
 }
 
 func GenPrivKeyFromPath(fullHdPath string) XPrv {

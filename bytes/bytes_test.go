@@ -51,8 +51,6 @@ func TestJSONMarshal(t *testing.T) {
 			}
 			assert.Equal(t, string(jsonBytes), tc.expected)
 
-			// TODO do fuzz testing to ensure that unmarshal fails
-
 			// Test that unmarshaling works correctly.
 			ts2 := TestStruct{}
 			err = json.Unmarshal(jsonBytes, &ts2)

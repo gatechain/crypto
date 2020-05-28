@@ -68,11 +68,6 @@ func (dop DominoOp) GetKey() []byte {
 func TestProofOperators(t *testing.T) {
 	var err error
 
-	// ProofRuntime setup
-	// TODO test this somehow.
-	// prt := NewProofRuntime()
-	// prt.RegisterOpDecoder(ProofOpDomino, DominoOpDecoder)
-
 	// ProofOperators setup
 	op1 := NewDominoOp("KEY1", "INPUT1", "INPUT2")
 	op2 := NewDominoOp("KEY2", "INPUT2", "INPUT3")

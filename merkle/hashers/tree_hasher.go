@@ -23,7 +23,6 @@ type LogHasher interface {
 	// HashChildren computes interior nodes.
 	HashChildren(l, r []byte) []byte
 	// Size is the number of bits in the underlying hash function.
-	// TODO(gbelvin): Replace Size() with BitLength().
 	Size() int
 }
 
@@ -31,14 +30,12 @@ type LogHasher interface {
 type MapHasher interface {
 	// HashEmpty returns the hash of an empty branch at a given depth.
 	// A height of 0 indicates an empty leaf. The maximum height is Size*8.
-	// TODO(gbelvin) fully define index.
 	HashEmpty(treeID int64, index []byte, height int) []byte
 	// HashLeaf computes the hash of a leaf that exists.
 	HashLeaf(treeID int64, index []byte, leaf []byte) ([]byte, error)
 	// HashChildren computes interior nodes.
 	HashChildren(l, r []byte) []byte
 	// Size is the number of bytes in the underlying hash function.
-	// TODO(gbelvin): Replace Size() with BitLength().
 	Size() int
 	// BitLen returns the number of bits in the underlying hash function.
 	// It is also the height of the merkle tree.

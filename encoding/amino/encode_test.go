@@ -8,12 +8,12 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	amino "github.com/tendermint/go-amino"
 	"github.com/gatechain/crypto"
 	"github.com/gatechain/crypto/ed25519"
 	"github.com/gatechain/crypto/multisig"
 	"github.com/gatechain/crypto/secp256k1"
 	"github.com/gatechain/crypto/sr25519"
+	amino "github.com/tendermint/go-amino"
 )
 
 type byter interface {
@@ -57,13 +57,13 @@ func ExamplePrintRegisteredTypes() {
 	cdc.PrintTypes(os.Stdout)
 	// Output: | Type | Name | Prefix | Length | Notes |
 	//| ---- | ---- | ------ | ----- | ------ |
-	//| PubKeyEd25519 | tendermint/PubKeyEd25519 | 0x1624DE64 | 0x20 |  |
-	//| PubKeySr25519 | tendermint/PubKeySr25519 | 0x0DFB1005 | 0x20 |  |
-	//| PubKeySecp256k1 | tendermint/PubKeySecp256k1 | 0xEB5AE987 | 0x21 |  |
-	//| PubKeyMultisigThreshold | tendermint/PubKeyMultisigThreshold | 0x22C1F7E2 | variable |  |
-	//| PrivKeyEd25519 | tendermint/PrivKeyEd25519 | 0xA3288910 | 0x40 |  |
-	//| PrivKeySr25519 | tendermint/PrivKeySr25519 | 0x2F82D78B | 0x20 |  |
-	//| PrivKeySecp256k1 | tendermint/PrivKeySecp256k1 | 0xE1B0F79B | 0x20 |  |
+	//| PubKeyEd25519 | gatechain/PubKeyEd25519 | 0x1624DE64 | 0x20 |  |
+	//| PubKeySr25519 | gatechain/PubKeySr25519 | 0x0DFB1005 | 0x20 |  |
+	//| PubKeySecp256k1 | gatechain/PubKeySecp256k1 | 0xEB5AE987 | 0x21 |  |
+	//| PubKeyMultisigThreshold | gatechain/PubKeyMultisigThreshold | 0x22C1F7E2 | variable |  |
+	//| PrivKeyEd25519 | gatechain/PrivKeyEd25519 | 0xA3288910 | 0x40 |  |
+	//| PrivKeySr25519 | gatechain/PrivKeySr25519 | 0x2F82D78B | 0x20 |  |
+	//| PrivKeySecp256k1 | gatechain/PrivKeySecp256k1 | 0xE1B0F79B | 0x20 |  |
 }
 
 func TestKeyEncodings(t *testing.T) {
@@ -176,7 +176,8 @@ func (privkey testPriv) Equals(other crypto.PrivKey) bool { return true }
 
 type testPub []byte
 
-func (key testPub) Address() crypto.Address { return crypto.Address{} }
+func (key testPub) Address() crypto.Address    { return crypto.Address{} }
+func (key testPub) Address512() crypto.Address { return crypto.Address{} }
 func (key testPub) Bytes() []byte {
 	return testCdc.MustMarshalBinaryBare(key)
 }

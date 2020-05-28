@@ -21,12 +21,6 @@ var cdc = amino.NewCodec()
 var nameTable = make(map[reflect.Type]string, 3)
 
 func init() {
-	// NOTE: It's important that there be no conflicts here,
-	// as that would change the canonical representations,
-	// and therefore change the address.
-	// TODO: Remove above note when
-	// https://github.com/tendermint/go-amino/issues/9
-	// is resolved
 	RegisterAmino(cdc)
 
 	// TODO: Have amino provide a way to go from concrete struct to route directly.

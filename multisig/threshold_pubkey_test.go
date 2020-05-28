@@ -106,7 +106,6 @@ func TestThresholdMultisigValidCases(t *testing.T) {
 	}
 }
 
-// TODO: Fully replace this test with table driven tests
 func TestThresholdMultisigDuplicateSignatures(t *testing.T) {
 	msg := []byte{1, 2, 3, 4, 5}
 	pubkeys, sigs := generatePubKeysAndSignatures(5, msg)
@@ -119,7 +118,6 @@ func TestThresholdMultisigDuplicateSignatures(t *testing.T) {
 	require.False(t, multisigKey.VerifyBytes(msg, multisignature.Marshal()))
 }
 
-// TODO: Fully replace this test with table driven tests
 func TestMultiSigPubKeyEquality(t *testing.T) {
 	msg := []byte{1, 2, 3, 4}
 	pubkeys, _ := generatePubKeysAndSignatures(5, msg)
