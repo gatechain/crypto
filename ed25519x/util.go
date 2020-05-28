@@ -1,9 +1,23 @@
+// Copyright (C) 2020 GateChain.
+// This file is part of gatechain/crypto(dev@gatechain.org).
+//
+// crypto is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as
+// published by the Free Software Foundation, either version 3 of the
+// License, or (at your option) any later version.
+//
+// crypto is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with crypto.  If not, see <https://www.gnu.org/licenses/>.
+
 package ed25519x
 
 import "github.com/gatechain/crypto/ed25519/edwards25519"
 
-//import "github.com/bip32/internal/edwards25519"
-//
 func add28Mul8(kl, zl []byte) []byte {
 	var carry uint16 = 0
 	var out [32]byte

@@ -1,3 +1,19 @@
+// Copyright (C) 2020 GateChain.
+// This file is part of gatechain/crypto(dev@gatechain.org).
+//
+// crypto is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as
+// published by the Free Software Foundation, either version 3 of the
+// License, or (at your option) any later version.
+//
+// crypto is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with crypto.  If not, see <https://www.gnu.org/licenses/>.
+
 package secp256k1_test
 
 import (
@@ -17,17 +33,17 @@ import (
 )
 
 type keyData struct {
-	priv string
-	pub  string
-	addr string
+	priv    string
+	pub     string
+	addr    string
 	addr512 string
 }
 
 var secpDataTable = []keyData{
 	{
-		priv: "a96e62ed3955e65be32703f12d87b6b5cf26039ecfa948dc5107a495418e5330",
-		pub:  "02950e1cdfcb133d6024109fd489f734eeb4502418e538c28481f22bce276f248c",
-		addr: "1CKZ9Nx4zgds8tU7nJHotKSDr4a9bYJCa3",
+		priv:    "a96e62ed3955e65be32703f12d87b6b5cf26039ecfa948dc5107a495418e5330",
+		pub:     "02950e1cdfcb133d6024109fd489f734eeb4502418e538c28481f22bce276f248c",
+		addr:    "1CKZ9Nx4zgds8tU7nJHotKSDr4a9bYJCa3",
 		addr512: "3EDC51FBD92AFF5F43FB6640E8C25AAB65372052C5BEF6D1FBA432FE5AAB44210FE3FF5FA27E9B99",
 	},
 }
