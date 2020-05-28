@@ -1,6 +1,6 @@
 # Crypto
 
-This repository is the cryptographic package adapted for GateChain's uses
+This repository is the cryptographic package adapted for GateChain's uses.
 
 ## Download/Install
 
@@ -20,9 +20,9 @@ export CGO_CFLAGS="-I$SODIUM_PATH/include"
 export CGO_LDFLAGS="-L$SODIUM_PATH/lib"
 ```
 
-## Report Issues / Send Patches
+## Report Issues
 
 The main issue tracker for the repository is located at https://github.com/gatechain/crypto/issues. 
 
-Note that contributions to the cryptography package receive additional scrutiny due to their sensitive nature. Patches may take longer than normal to receive feedback.
+Note that contributions receive additional scrutiny due to their sensitive nature.
 

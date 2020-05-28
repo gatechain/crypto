@@ -45,19 +45,19 @@ func TestXPrv_Derive(t *testing.T) {
 			name: "seed1",
 			args: args{mnemonicToSeed("barrel original fuel morning among eternal " +
 				"filter ball stove pluck matrix mechanic"), "44'/118'/0'/0/0"},
-			want: "301105cd4b8a14ecf2362a188dce2c2c7fd653fc0224ef3c20025ed908e7fe575c2d59223f424dd0d5de8e451e5ba1a45a39806353c955d744e686cf3321b5550aaa64622d0848e8b7a625ae98eea2d08a5262aaffca2c6b6fe1d82120a104be",
+			want: "f00d2ed18ab5bbf4b52a19f827aa2cfaa0b7658e85c0ff6ea9b5fadb0be7fe577a68b8c7ebf3cbfecd95088664ea5d361ef714396eadca7780fbd0e01e69ba80ad310f3628033cc419c0e17a02bad336af5cd4a381a3df9c95da1b32286aa554",
 		},
 		{
 			name: "seed2",
 			args: args{mnemonicToSeed("advice process birth april short trust crater change bacon monkey medal garment " +
 				"gorilla ranch hour rival razor call lunar mention taste vacant woman sister"), "44'/1'/1'/0/4"},
-			want: "805819945328fafae27524b101a5c56e10d15d868b775dab3d1460069ac64a4b9fee7dfd60e450cebbda7dd79c41f31ed2ce636c6a33ed870e696d2693d905863bdc642c05cccf300aebcbacf95a51d31a93a343ff16acd3ad5a41bf749f8a94",
+			want: "207f092e17cc9fd9ef319bc5c5d80a7961778de07db85422591c380587c64a4be7be8ec1b426a5c5c783263cbc13d0770e600ea11d0b1bc0c9d3cb64dcd1ddd4be424f9af3e6d0b4343a5ee78a73d161ae7d7d7fd9e259bcaaedeb91a5146381",
 		},
 		{
 			name: "seed3",
 			args: args{mnemonicToSeed("idea naive region square margin day captain habit " +
 				"gun second farm pact pulse someone armed"), "44'/0'/0'/0/420"},
-			want: "b8f1eede959d92ad7a9f36d5be8a30a92a33772bfed2615798ed4952591616445e5ebb87f8fffdc344a458689412d39c133b58668a8ee3d838dcdb73cadd629fc473fe84d04c1eeba7b6f2ad50e6304506853c6adea16da01cc1f57de357dfb4",
+			want: "58d3b68b06faaab04e06d1f16f9fe630d1ee632fc3f163af63cda13a57161644f75ada0a6ec4b831b65881b5dff5cdadfca573311bf3aafcf2e9c75bcffbcc928e4aa41752da49d3beb2749bfd4b1e7c751fa6aa211dd5694616243d9c9e93d6",
 		},
 		{
 			name: "seed4",

@@ -73,13 +73,15 @@ func ExamplePrintRegisteredTypes() {
 	cdc.PrintTypes(os.Stdout)
 	// Output: | Type | Name | Prefix | Length | Notes |
 	//| ---- | ---- | ------ | ----- | ------ |
-	//| PubKeyEd25519 | gatechain/PubKeyEd25519 | 0x1624DE64 | 0x20 |  |
-	//| PubKeySr25519 | gatechain/PubKeySr25519 | 0x0DFB1005 | 0x20 |  |
-	//| PubKeySecp256k1 | gatechain/PubKeySecp256k1 | 0xEB5AE987 | 0x21 |  |
-	//| PubKeyMultisigThreshold | gatechain/PubKeyMultisigThreshold | 0x22C1F7E2 | variable |  |
-	//| PrivKeyEd25519 | gatechain/PrivKeyEd25519 | 0xA3288910 | 0x40 |  |
-	//| PrivKeySr25519 | gatechain/PrivKeySr25519 | 0x2F82D78B | 0x20 |  |
-	//| PrivKeySecp256k1 | gatechain/PrivKeySecp256k1 | 0xE1B0F79B | 0x20 |  |
+	//| PubKeyEd25519 | gatechain/Ed25519PubKey | 0x3CD1664E | 0x20 |  |
+	//| PubKeySr25519 | gatechain/PubKeySr25519 | 0x21C498F2 | 0x20 |  |
+	//| PubKeySecp256k1 | gatechain/PubKeySecp256k1 | 0x076D4985 | 0x21 |  |
+	//| PubKeyMultisigThreshold | gatechain/PubKeyMultisigThreshold | 0x38149471 | variable |  |
+	//| XPub | gatechain/PubKeyEd25519 | 0xE1E1A0FA | 0x20 |  |
+	//| PrivKeyEd25519 | gatechain/Ed25519PrivKey | 0x59C2274B | 0x40 |  |
+	//| PrivKeySr25519 | gatechain/PrivKeySr25519 | 0xF7E0CA1F | 0x20 |  |
+	//| PrivKeySecp256k1 | gatechain/PrivKeySecp256k1 | 0x6BE2C7D4 | 0x20 |  |
+	//| XPrv | gatechain/PrivKeyEd25519 | 0xD832C98A | 0x60 |  |
 }
 
 func TestKeyEncodings(t *testing.T) {

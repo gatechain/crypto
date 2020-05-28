@@ -10,7 +10,7 @@ import (
 	"testing"
 )
 
-var defaultSalt = []byte{0, 0, 0, 0, 0, 0, 0, 0}
+var defaultSalt = []byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 
 func TestBcryptingIsEasy(t *testing.T) {
 	pass := []byte("mypassword")
