@@ -17,9 +17,8 @@
 package merkle
 
 import (
-	"github.com/gatechain/crypto"
 	"fmt"
-	//"github.com/algorand/go-algorand/logging"
+	"github.com/gatechain/crypto"
 )
 
 // Root returns the root of a merkle tree with the leaves given as input

@@ -22,7 +22,7 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/algorand/go-algorand/crypto/merkle/hashers"
+	"github.com/gatechain/crypto/merkle/hashers"
 )
 
 // Note test inputs came from the values used by the C++ code. The original

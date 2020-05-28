@@ -2,17 +2,17 @@ package bitarray
 
 import (
 	"encoding/json"
+	"github.com/gatechain/crypto/merkle/common"
 	"math/rand"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	tmrand "github.com/tendermint/tendermint/libs/rand"
 )
 
 func randCompactBitArray(bits int) (*CompactBitArray, []byte) {
 	numBytes := (bits + 7) / 8
-	src := tmrand.Bytes((bits + 7) / 8)
+	src := common.RandBytes((bits + 7) / 8)
 	bA := NewCompactBitArray(bits)
 
 	for i := 0; i < numBytes-1; i++ {
