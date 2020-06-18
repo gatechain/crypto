@@ -76,7 +76,6 @@ func (privKey PrivKeyEd25519) Bytes() []byte {
 //	signatureBytes := ed25519.Sign(privKey[:], msg)
 //	return signatureBytes, nil
 //}
-
 func (privKey PrivKeyEd25519) Sign(message []byte) ([]byte, error) {
 	privateKey := privKey[:]
 	if l := len(privateKey); l != ed25519.PrivateKeySize {
@@ -227,12 +226,12 @@ const PubKeyEd25519Size = 32
 // PubKeyEd25519 implements crypto.PubKey for the Ed25519 signature scheme.
 type PubKeyEd25519 [PubKeyEd25519Size]byte
 
-// Address is the SHA256-20 of the raw pubkey bytes.
+// Address is the SHA512 of the raw pubkey bytes.
 func (pubKey PubKeyEd25519) Address512() crypto.Address {
 	return crypto.Address(tmhash.SumTruncated(pubKey[:]))
 }
 
-// Address is the SHA512 of the raw pubkey bytes.
+// Address is the SHA256-20 of the raw pubkey bytes.
 func (pubKey PubKeyEd25519) Address() crypto.Address {
 	hasherSHA512 := sha512.New()
 	hasherSHA512.Write(pubKey[:]) // does not error
