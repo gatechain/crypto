@@ -139,10 +139,10 @@ func (m *KI64Pair) GetValue() int64 {
 }
 
 func init() {
-	proto.RegisterType((*KVPair)(nil), "common.GMKVPair")
-	golang_proto.RegisterType((*KVPair)(nil), "common.GMKVPair")
-	proto.RegisterType((*KI64Pair)(nil), "common.GMKI64Pair")
-	golang_proto.RegisterType((*KI64Pair)(nil), "common.GMKI64Pair")
+	//proto.RegisterType((*KVPair)(nil), "common.KVPair")
+	//golang_proto.RegisterType((*KVPair)(nil), "common.KVPair")
+	//proto.RegisterType((*KI64Pair)(nil), "common.KI64Pair")
+	//golang_proto.RegisterType((*KI64Pair)(nil), "common.KI64Pair")
 }
 
 func init() { proto.RegisterFile("libs/common/types.proto", fileDescriptor_28b36ea5054b507d) }
