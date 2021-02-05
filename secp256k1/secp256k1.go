@@ -18,6 +18,7 @@ package secp256k1
 
 import (
 	"bytes"
+	"crypto/ecdsa"
 	"crypto/hmac"
 	"crypto/sha256"
 	"crypto/sha512"
@@ -165,6 +166,16 @@ func GenPrivKeySecp256k1(secret []byte) PrivKeySecp256k1 {
 	return PrivKeySecp256k1(privKey32)
 }
 
+//ToECDSA returns the ECDSA private key as a reference to ecdsa.PrivateKey type.
+//The function will panic if the private key is invalid.
+func (privkey PrivKeySecp256k1) ToECDSA() *ecdsa.PrivateKey {
+	key, err := ethcrypto.ToECDSA(privkey[:])
+	if err != nil {
+		panic(err)
+	}
+	return key
+}
+
 //-------------------------------------
 
 var _ crypto.PubKey = PubKeySecp256k1{}
@@ -221,9 +232,6 @@ func (pubKey PubKeySecp256k1) Equals(other crypto.PubKey) bool {
 	return false
 }
 
-
-
-
 // DERIVE SECP256K1
 
 // DerivePrivateKeyForPath derives the private key by following the BIP 32/44 path from privKeyBytes,
@@ -255,7 +263,6 @@ func DerivePrivateKeyForPath(privKeyBytes [32]byte, chainCode [32]byte, path str
 
 	return derivedKey, nil
 }
-
 
 // derivePrivateKey derives the private key with index and chainCode.
 // If harden is true, the derivation is 'hardened'.
