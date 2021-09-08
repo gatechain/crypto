@@ -22,7 +22,6 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/btcsuite/btcutil/base58"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
@@ -52,8 +51,8 @@ func TestPubKeySecp256k1Address(t *testing.T) {
 	for _, d := range secpDataTable {
 		privB, _ := hex.DecodeString(d.priv)
 		pubB, _ := hex.DecodeString(d.pub)
-		addrBbz, _, _ := base58.CheckDecode(d.addr)
-		addrB := crypto.Address(addrBbz)
+		//addrBbz, _, _ := base58.CheckDecode(d.addr)
+		//addrB := crypto.Address(addrBbz)
 
 		var priv secp256k1.PrivKeySecp256k1
 		copy(priv[:], privB)
@@ -61,12 +60,12 @@ func TestPubKeySecp256k1Address(t *testing.T) {
 		pubKey := priv.PubKey()
 		pubT, _ := pubKey.(secp256k1.PubKeySecp256k1)
 		pub := pubT[:]
-		addr := pubKey.Address()
+		//addr := pubKey.Address()
 		addr512 := pubKey.Address512()
 		fmt.Printf("addr512:%s\n", addr512)
 
 		assert.Equal(t, pub, pubB, "Expected pub keys to match")
-		assert.Equal(t, addr, addrB, "Expected addresses to match")
+		//assert.Equal(t, addr, addrB, "Expected addresses to match")
 		assert.Equal(t, addr512.String(), d.addr512, "Expected addresses to match")
 	}
 }
