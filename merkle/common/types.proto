@@ -1,5 +1,5 @@
 syntax = "proto3";
-package common;
+package gatechain.crypto.merkle.common;
 
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 
