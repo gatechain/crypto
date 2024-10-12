@@ -3,7 +3,7 @@ module github.com/gatechain/crypto
 go 1.13
 
 require (
-	github.com/ChainSafe/go-schnorrkel v0.0.0-20200102211924-4bcbc698314f
+	github.com/ChainSafe/go-schnorrkel v1.0.0
 	github.com/btcsuite/btcd v0.20.1-beta
 	github.com/cosmos/go-bip39 v0.0.0-20180819234021-555e2067c45d
 	github.com/davidlazar/go-crypto v0.0.0-20190912175916-7055855a373f
@@ -18,4 +18,5 @@ require (
 	github.com/stretchr/testify v1.7.0
 	github.com/tendermint/go-amino v0.15.1
 	golang.org/x/crypto v0.0.0-20210322153248-0c34fe9e7dc2
+	google.golang.org/protobuf v1.23.0
 )
