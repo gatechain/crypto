@@ -72,7 +72,11 @@ func (pubKey PubKeySr25519) VerifyBytes(msg []byte, sig []byte) bool {
 		return false
 	}
 
-	return publicKey.Verify(signature, signingContext)
+	res, err := publicKey.Verify(signature, signingContext)
+	if err != nil {
+		return false
+	}
+	return res
 }
 
 func (pubKey PubKeySr25519) String() string {
